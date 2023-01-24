@@ -130,8 +130,16 @@ function findIntern(data) {
         console.log("No results.");
         return;
     }
-    let key = Object.keys(data)[0];
-    let intern = interns.filter((currIntern) => currIntern[key] === data[key]);
+    let keys = Object.keys(data);
+    let intern = interns.filter((currIntern) => {
+        let internFound = true;
+        for (let key of keys) {
+            if (currIntern[key] !== data[key]) {
+                internFound = false;
+            }
+        }
+        return internFound;
+    });
     if (intern.length === 0) {
         console.log("Intern not present in the database.");
         return [];
